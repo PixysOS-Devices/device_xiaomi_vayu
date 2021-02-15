@@ -132,7 +132,6 @@ on boot
     chown system system /sys/kernel/qvr_external_sensor/fd
     chown system system /sys/class/drm/card0-DSI-1/doze_backlight
     start vendor.rmt_storage
-    start rfs_access
     write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/audio-app/cpus 1-2
     write /dev/cpuset/foreground/cpus 0-3
