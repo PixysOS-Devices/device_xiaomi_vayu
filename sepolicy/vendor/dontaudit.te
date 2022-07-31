@@ -1,1 +1,46 @@
 dontaudit shell kernel:system syslog_read;
+
+# dont audit untrusted app domains
+define(`all_untrusted_apps',`{
+  untrusted_app
+  untrusted_app_25
+  untrusted_app_27
+  untrusted_app_29
+  untrusted_app_all
+}')
+
+dontaudit all_untrusted_apps {
+  app_data_file
+  cgroup
+  dalvikcache_data_file
+  deviceid_prop
+  proc
+  proc_net_tcp_udp
+  untrusted_app
+  proc_loadavg
+  proc_net
+  proc_pid_max
+  proc_tty_drivers
+  proc_version
+  proc_zoneinfo
+  qemu_hw_prop
+  qemu_sf_lcd_density_prop
+  selinuxfs
+  serialno_prop
+  sysfs_net
+  wifi_hal_prop
+}:file *;
+
+dontaudit all_untrusted_apps {
+  sysfs
+  sysfs_msm_subsys
+  sysfs_net
+}:dir *;
+
+dontaudit all_untrusted_apps untrusted_app:{
+  netlink_route_socket
+  udp_socket
+}*;
+
+dontaudit all_untrusted_apps mnt_sdcard_file:lnk_file *;
+dontaudit all_untrusted_apps zygote:unix_stream_socket *;
